@@ -6,9 +6,9 @@
 }
 
 :root {
-    --primary-blue: #004aad;
+    --primary-blue: #16e0bd;
     --light-gray: #f8f9fa;
-    --dark-gray: #333;
+    --dark-gray: #303030;
     --white: #ffffff;
     --green-whatsapp: #25D366;
     --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -52,6 +52,17 @@ h1, h2, h3, h4 {
     color: var(--primary-blue);
     text-decoration: none;
 }
+.logo img {
+    height: 100px;
+    width: auto;
+    vertical-align: middle;
+}
+
+.case-img {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+}
 
 .nav-menu {
     display: flex;
@@ -88,8 +99,8 @@ h1, h2, h3, h4 {
 /* Hero Section */
 .hero {
     height: 100vh;
-    background: linear-gradient(rgba(0, 74, 173, 0.8), rgba(0, 74, 173, 0.6)), 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23e8f4f8" width="1200" height="800"/><g fill="%23004aad" opacity="0.1"><circle cx="200" cy="150" r="80"/><circle cx="800" cy="200" r="120"/><circle cx="1000" cy="600" r="100"/><rect x="100" y="500" width="200" height="150" rx="10"/><rect x="700" y="100" width="150" height="200" rx="10"/></g></svg>');
+    background: linear-gradient(rgba(113, 122, 133, 0.8), rgba(59, 163, 168, 0.6)), 
+                url('assets/img/hero.jpg');
     background-size: cover;
     background-position: center;
     display: flex;
