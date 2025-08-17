@@ -396,24 +396,27 @@ function handleBooking(event) {
     // Simular envío de datos
     showLoading(event.target.querySelector('button[type="submit"]'));
     
-    setTimeout(() => {
+    fetch('https://formspree.io/f/movlzevz', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+    })
+    .then(response => {
+        return response.json()
+    })
+    .then(data => {
         hideLoading(event.target.querySelector('button[type="submit"]'));
-        
-        // Crear mensaje de WhatsApp
-        const whatsappMessage = createWhatsAppMessage(data);
-        const whatsappUrl = `https://wa.me/51924009439?text=${encodeURIComponent(whatsappMessage)}`;
-        
-        // Abrir WhatsApp
-        window.open(whatsappUrl, '_blank');
-        
         showMessage('¡Reserva enviada exitosamente! Te contactaremos pronto para confirmar.', 'success');
         event.target.reset();
         
         // Resetear selectores de ubicación
         updateProvinces();
         updateDistricts();
-        
-    }, 2000);
+    })
+    .catch(error => {
+        hideLoading(event.target.querySelector('button[type="submit"]'));
+        showMessage('Error al enviar la reserva. Por favor, inténtalo de nuevo.', 'error');
+    });
 }
 
 // Crear mensaje de WhatsApp para la reserva
@@ -450,7 +453,12 @@ function getServiceName(serviceCode) {
         'redes': 'Redes e Internet',
         'camaras': 'Cámaras y Seguridad',
         'soporte': 'Soporte IT',
-        'empresarial': 'Soluciones Empresariales'
+        'empresarial': 'Soluciones Empresariales',
+        'ciberseguridad': 'Ciberseguridad Empresarial',
+        'moviles-web': 'Soluciones Móviles y Web',
+        'dominio-correo': 'Dominio y Correo Corporativo',
+        'hardware': 'Hardware y Equipos',
+        'impresiones-3d': 'Impresiones 3D',
     };
     return services[serviceCode] || serviceCode;
 }
@@ -469,7 +477,7 @@ function formatDate(dateString) {
 // Manejar envío del formulario de contacto
 function handleContact(event) {
     event.preventDefault();
-    
+  
     const formData = new FormData(event.target);
     const data = {};
     
@@ -477,6 +485,8 @@ function handleContact(event) {
     for (let [key, value] of formData.entries()) {
         data[key] = value;
     }
+    
+    console.log('Data being sent to Formspree:', data);
     
     // Validar campos requeridos
     const requiredFields = ['nombre', 'email', 'telefono', 'asunto', 'mensaje'];
@@ -496,20 +506,24 @@ function handleContact(event) {
     // Simular envío de datos
     showLoading(event.target.querySelector('button[type="submit"]'));
     
-    setTimeout(() => {
+    // Enviar correo electrónico
+    fetch('https://formspree.io/f/mrblvpbe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+    })
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
         hideLoading(event.target.querySelector('button[type="submit"]'));
-        
-        // Crear mensaje de WhatsApp para contacto
-        const whatsappMessage = createContactWhatsAppMessage(data);
-        const whatsappUrl = `https://wa.me/51924009439?text=${encodeURIComponent(whatsappMessage)}`;
-        
-        // Abrir WhatsApp
-        window.open(whatsappUrl, '_blank');
-        
         showMessage('¡Mensaje enviado exitosamente! Te contactaremos pronto.', 'success');
         event.target.reset();
-        
-    }, 1500);
+    })
+    .catch(error => {
+        hideLoading(event.target.querySelector('button[type="submit"]'));
+        showMessage('Error al enviar el mensaje. Por favor, inténtalo de nuevo.', 'error');
+    });
 }
 
 // Crear mensaje de WhatsApp para contacto
@@ -749,6 +763,99 @@ window.addEventListener('online', function() {
 
 window.addEventListener('offline', function() {
     showMessage('Sin conexión a internet', 'error');
+});
+
+
+// Hamburger Menu Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    const body = document.body;
+    const navLinks = document.querySelectorAll('.nav-menu a');
+
+    // Toggle menu function
+    function toggleMenu() {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        body.classList.toggle('menu-open');
+    }
+
+    // Close menu function
+    function closeMenu() {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+        body.classList.remove('menu-open');
+    }
+
+    // Hamburger click event
+    if (hamburger) {
+        hamburger.addEventListener('click', toggleMenu);
+    }
+
+    // Close menu when clicking on nav links
+    navLinks.forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(event) {
+        const isClickInsideNav = navMenu.contains(event.target);
+        const isClickOnHamburger = hamburger.contains(event.target);
+        
+        if (!isClickInsideNav && !isClickOnHamburger && navMenu.classList.contains('active')) {
+            closeMenu();
+        }
+    });
+
+    // Close menu on escape key press
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && navMenu.classList.contains('active')) {
+            closeMenu();
+        }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+            closeMenu();
+        }
+    });
+});
+
+// Smooth scrolling for anchor links
+document.addEventListener('DOMContentLoaded', function() {
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    
+    anchorLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            
+            if (targetSection) {
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});
+
+// Add scroll effect to header
+window.addEventListener('scroll', function() {
+    const header = document.querySelector('.header');
+    if (window.scrollY > 50) {
+        header.style.background = 'rgba(255, 255, 255, 0.98)';
+        header.style.backdropFilter = 'blur(10px)';
+    } else {
+        header.style.background = 'var(--white)';
+        header.style.backdropFilter = 'none';
+    }
 });
 
 // Console log para desarrollo

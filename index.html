@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alphatech Solutions E.I.R.L. - Tecnología, Redes y Seguridad</title>
+    <title>Alphatech Solutions E.I.R.L.</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="assets/img/logo.png">
 </head>
 <body>
     <!-- Header -->
@@ -15,6 +16,11 @@
             <a href="#inicio" class="logo">
                 <img src="assets/img/logo.png" class="logo-img" alt="Alphatech Solutions Logo">
             </a>
+            <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <ul class="nav-menu">
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#servicios">Servicios</a></li>
@@ -188,6 +194,11 @@
                         <option value="camaras">Cámaras y Seguridad</option>
                         <option value="soporte">Soporte IT</option>
                         <option value="empresarial">Soluciones Empresariales</option>
+                        <option value="ciberseguridad">Ciberseguridad Empresarial</option>
+                        <option value="moviles-web">Soluciones Móviles y Web</option>
+                        <option value="dominio-correo">Dominio y Correo Corporativo</option>
+                        <option value="hardware">Provisión de Hardware de TI</option>
+                        <option value="impresiones-3d">Impresiones 3D</option>
                     </select>
                 </div>
                 <div class="form-row">
@@ -298,6 +309,11 @@
                         <i class="fas fa-map-marker-alt"></i>
                         <span>Jr. Domingo Savio 175, Piura, Perú</span>
                     </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Oficina - Av. General Salaverry, San Isidro, Lima, Perú</span>
+                    </div>
+                    
                     <div class="social-links">
                         <a href="https://www.linkedin.com/company/alphatech-solutions-e-i-r-l/"><i class="fab fa-linkedin"></i></a>
                         <a href="https://www.instagram.com/alphatech.solutions/"><i class="fab fa-instagram"></i></a>
@@ -307,11 +323,11 @@
                     <h3>Envíanos un mensaje</h3>
                     <div class="form-group">
                         <label for="contact-nombre">Nombre *</label>
-                        <input type="text" id="contact-nombre" name="nombre" required>
+                        <input type="text" id="contact-nombre" name="nombre" placeholder="Nombre" required>
                     </div>
                     <div class="form-group">
                         <label for="contact-email">Email *</label>
-                        <input type="email" id="contact-email" name="email" required>
+                        <input type="email" id="contact-email" name="email" placeholder="ejemplo@ejemplo.com" required>
                     </div>
                     <div class="form-group">
                         <label for="contact-telefono">Teléfono de contacto *</label>
